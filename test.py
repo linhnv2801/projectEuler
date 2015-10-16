@@ -12,3 +12,5 @@ print ~a
 print a &b
 print bin(c)[2:]
 print c
+
+print 2*(-1/6.)
