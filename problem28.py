@@ -1,15 +1,7 @@
 __author__ = 'sev_user'
-N = 101
-# print N
-matrix = [[0 for x in range(N)] for x in range(N)]
-#
-# print matrix[0][0]
-# print matrix[100][100]
-matrix[N/2][N/2] = 1
-x = 1
-t = 1
-for m in range(1,501):
-	x = x + 4 * t + 10 * (2 * m)
-	t = t + 4 * (2 * m)
-print x
-# print N/2
+s=1
+for i in range(1001,1,-2):
+    t = i**2
+    for j in range(4):
+        s += t - j * (i-1)
+print s
