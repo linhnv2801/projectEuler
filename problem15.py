@@ -8,7 +8,7 @@ def route_num(cube_size):
         L[i] = 2 * L[i - 1]
     return L[cube_size - 1]
 
-start = time.time()
+start = time.time()*1000
 n = route_num(20)
-elapsed = (time.time() - start)
-print "%s found in %s seconds" % (n,elapsed)
+elapsed = (time.time()*1000 - start)
+print "%s found in %s miliseconds" % (n,elapsed)

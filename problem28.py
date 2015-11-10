@@ -1,7 +1,5 @@
 __author__ = 'sev_user'
-s=1
-for i in range(1001,1,-2):
-    t = i**2
-    for j in range(4):
-        s += t - j * (i-1)
-print s
+def f(x):
+    return float(16)/3*x**3 + 10*x**2 + float(26)/3*x + 1
+
+print f(2)

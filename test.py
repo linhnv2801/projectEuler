@@ -1,16 +1,3 @@
-print 2**3
-print 2==3
-print 2 <>3
-print 2 != 3
-print oct(13)
-a = 00111100
-
-b = 00001101
-c = 00001101
-
-print ~a 
-print a &b
-print bin(c)[2:]
-print c
-
-print 2*(-1/6.)
+#!/usr/bin/python
+for y in range(1, 10001):
+     print y;
