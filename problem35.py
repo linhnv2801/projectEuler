@@ -1,71 +1,46 @@
-import itertools
-import timeit
-from math import sqrt
+# sieve method for getting list of primes.
+def primes(n):
+    if n == 2:
+        return [2]
+    elif n < 2:
+        return []
+    s = range(3, n + 1, 2)
+    mroot = n ** 0.5
+    half = (n + 1) / 2 - 1
+    i = 0
+    m = 3
+    while m <= mroot:
+        if s[i]:
+            j = (m * m - 3) / 2
+            s[j] = 0
+            while j < half:
+                s[j] = 0
+                j += m
+        i += 1
+        m = 2 * i + 3
+    return [2] + [x for x in s if x]
 
 
-def is_prime(a):
-    if a < 2: return False
-    sq = int(sqrt(a))
-    for i in range(2, sq + 1):
-        if a % i == 0:
-            return False
-    return True
-    # return all(a % i for i in xrange(2, a))
+# filter bad primes
+goodNums = set(['1', '3', '7', '9'])
+good_filter = lambda x: not set(str(x)).difference(goodNums)
+primes = filter(good_filter, primes(1000000))
 
 
-def list_digits(a):
-    n = len(str(a))
-    ls = list(str(a)[0])
-    for i in range(1, n):
-        ls.append(str(a)[i])
-    return ls
+def rotate(n_str):
+    return n_str[-1] + n_str[:-1]
 
 
-def sum_digits(ls):
-    LEN = len(ls)
-    sum = 0
-    for i in range(LEN):
-        sum += int(ls[i]) * 10 ** (LEN - i - 1)
-    return sum
+def isCircullar(n_str):
+    global primes
+    for i in range(len(n_str) - 1):
+        n_str = rotate(n_str)
+        if not int(n_str) in primes:
+            return 0
+    return 1
 
 
-def list_circular(a):
-    ll = [a]
-    ls = list_digits(a)
-    LEN = len(ls)
-    for i in range(LEN - 1):
-        ls.append(ls.pop(0))
-        ll.append(sum_digits(ls))
-    return ll
+circullarCounter = lambda x, y: x + isCircullar(str(y))
 
-
-def list_permutations(a):
-    ls = list(itertools.permutations(list_digits(a)))
-    len1 = len(ls)
-    ll = []
-    for i in range(len1):
-        ll.append(sum_digits(ls[i]))
-    return ll
-
-
-def check_list_prime(ll):
-    # return all(is_prime(ll[i]) for i in xrange(len(ll)))
-    for i in xrange(len(ll)):
-        if is_prime(ll[i]) == False:
-            return False
-    return True
-
-
-# print list_digits(5)
-# print list_permutations(123)
-print list_circular(197)
-start = timeit.default_timer()
-count = 0
-for i in range(2, 1000000):
-    if is_prime(i) == True and check_list_prime(list_circular(i)) == True:
-        print i
-        count += 1
-
-print count
-stop = timeit.default_timer()
-print stop - start
+# explicitly include 2 and 5 to circullar primes (excluded at filtering procedure)
+print reduce(circullarCounter, primes, 2)
