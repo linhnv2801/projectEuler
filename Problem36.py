@@ -1,21 +1,44 @@
-def checkPalindromic(num):
-    s = str(num)
-    len2 = len(s)
-    mid = len2 / 2
-    for i in range(0, mid):
-        if s[i] != s[len2 - i - 1]:
-            return "false"
-    return "true"
+# Python version = 2.7.1
+# Platform = win32
+
+def binary_rep(i):
+    """Take decimal i and convert to binary with
+    built in function bin, slice off first two
+    characters."""
+    x = bin(i)
+    y = x[2:]
+    return y
 
 
-def toBin(num):
-    # return '{0:08b}'.format(num)
-    return bin(num)[2:]
+def reverse_binary(y):
+    """Take binary number y and reverse characters"""
+    x = y[::-1]
+    return x
 
 
-count = 0
-for i in range(1000000):
-    if checkPalindromic(i) == "true" and checkPalindromic(toBin(i)) == "true":
-        count += 1
+def reverse_decimal(i):
+    """Take decimal number i and reverse characters"""
+    y = str(i)
+    d = y[::-1]
+    return d
 
-print count
+
+def main():
+    """Main Program"""
+    L = []
+    Answer = 0
+    for i in range(1, 1000000):
+        x = binary_rep(i)
+        y = reverse_binary(x)
+        if x == y:
+            a = int(reverse_decimal(i))
+            if i == a:
+                L.append(i)
+        else:
+            continue
+    Answer = sum(L)
+    print "Sum = ", Answer
+
+
+if __name__ == '__main__':
+    main()
